@@ -1,5 +1,7 @@
 # Biotech Monitor
 
+[![tests](https://github.com/shivika2202/biotech-monitor/actions/workflows/tests.yml/badge.svg)](https://github.com/shivika2202/biotech-monitor/actions/workflows/tests.yml) ![Python 3.12](https://img.shields.io/badge/python-3.12-blue) ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+
 A weekly research pipeline that tracks 11 biotech companies across SEC filings, ClinicalTrials.gov, FDA records and the XBI biotech ETF. It checks what companies claim against primary sources, and an AI agent turns the results into a digest where every fact carries a source link and a date.
 
 Built by **Shivika Gupta**, University of Pennsylvania (Vagelos Program in Life Sciences & Management).
