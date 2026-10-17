@@ -1,0 +1,289 @@
+{
+  "_how_to_use": "One entry per claim from data/filing_notes/ that is marked unverified. scripts/verify_claims.py checks each one against a primary source. 'check' picks the method: sec_form4_purchases, sec_filing_text, fda_drugsfda, web_page_contains, ctgov_results, manual. Remove an entry once you no longer need it checked.",
+  "claims": [
+    {
+      "id": "NTHI-form4-ceo-0915",
+      "ticker": "NTHI",
+      "claim": "CEO Amir F. Heshmatpour bought 35,000 shares on 2026-09-15 at a weighted average of about $3.30",
+      "from_note": "data/filing_notes/NTHI_2026-09-17.md",
+      "check": "sec_form4_purchases",
+      "params": {
+        "cik": 1979414,
+        "owner_contains": "Heshmatpour",
+        "from_date": "2026-09-15",
+        "to_date": "2026-09-15",
+        "expect_shares": 35000,
+        "expect_avg_price": 3.3,
+        "price_tolerance": 0.02
+      }
+    },
+    {
+      "id": "NTHI-form4-ceo-total",
+      "ticker": "NTHI",
+      "claim": "CEO bought 111,000 shares for about $418,700 between the 2026-08-12 Phase 2a results and 2026-09-15",
+      "from_note": "data/filing_notes/NTHI_2026-09-17.md",
+      "check": "sec_form4_purchases",
+      "params": {
+        "cik": 1979414,
+        "owner_contains": "Heshmatpour",
+        "from_date": "2026-08-12",
+        "to_date": "2026-09-15",
+        "expect_shares": 111000,
+        "expect_value": 418700,
+        "value_tolerance_pct": 1.0
+      }
+    },
+    {
+      "id": "NTHI-form4-cmo-total",
+      "ticker": "NTHI",
+      "claim": "CMO Thomas C. Chen bought 49,016 shares for about $210,000 since 2026-08-12",
+      "from_note": "data/filing_notes/NTHI_2026-09-17.md",
+      "check": "sec_form4_purchases",
+      "params": {
+        "cik": 1979414,
+        "owner_contains": "Chen",
+        "from_date": "2026-08-12",
+        "to_date": "2026-09-16",
+        "expect_shares": 49016,
+        "expect_value": 210000,
+        "value_tolerance_pct": 1.0
+      }
+    },
+    {
+      "id": "NTHI-redemption-amount",
+      "ticker": "NTHI",
+      "claim": "Series A preferred redemption: 8-K says about $5,790,000 ($965/share); press release says $6.0 million stated value",
+      "from_note": "data/filing_notes/NTHI_2026-09-21.md",
+      "check": "sec_filing_text",
+      "params": {
+        "cik": 1979414,
+        "forms": [
+          "10-Q",
+          "10-K"
+        ],
+        "filed_after": "2026-10-01",
+        "must_contain": [
+          "Series A"
+        ],
+        "look_for": [
+          "5,790",
+          "5.79",
+          "965",
+          "6.0 million",
+          "6,000,000",
+          "redeem",
+          "redemption"
+        ]
+      }
+    },
+    {
+      "id": "NTHI-phase2a-protocol-results",
+      "ticker": "NTHI",
+      "claim": "NEO100 Phase 2a results under the protocol-specified method (not published by the company)",
+      "from_note": "data/filing_notes/NTHI_2026-09-17.md",
+      "check": "ctgov_results",
+      "params": {
+        "sponsor": "NeOnc",
+        "intervention": "NEO100"
+      }
+    },
+    {
+      "id": "NTHI-abu-dhabi-ind",
+      "ticker": "NTHI",
+      "claim": "Department of Health Abu Dhabi granted IND authorization for NEO100 (June 2026) and NEO212",
+      "from_note": "data/filing_notes/NTHI_2026-10-15.md",
+      "check": "manual",
+      "params": {
+        "where": "Department of Health Abu Dhabi news (https://www.doh.gov.ae/en/news; items load by JavaScript, so open it in a browser) and the DOH IRB Research Registry (https://www.doh.gov.ae/en/programs-initiatives/Test_code). On 2026-10-16 the registry page listed no study mentioning NeOnc, NEO100, NEO212 or glioma; the registry covers studies reviewed by the DOH ethics committee, not IND authorizations",
+        "why_manual": "No public API or searchable register found for DoH Abu Dhabi IND authorizations."
+      }
+    },
+    {
+      "id": "NTHI-fda-meeting-1117",
+      "ticker": "NTHI",
+      "claim": "In-person End-of-Phase 1 Type B FDA meeting on NEO212 scheduled for 2026-11-17",
+      "from_note": "data/filing_notes/NTHI_2026-09-28.md",
+      "check": "manual",
+      "params": {
+        "where": "Next NTHI 8-K or 10-Q after 2026-11-17 in EDGAR (https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1979414&type=8-K&dateb=&owner=include&count=40); fetch_sec_8k.py will pick it up",
+        "why_manual": "FDA does not publish sponsor meeting schedules. Only the company can confirm it took place."
+      }
+    },
+    {
+      "id": "RARE-genglycos-approval",
+      "ticker": "RARE",
+      "claim": "FDA approved GENGLYCOS (DTX401) for GSDIa on 2026-08-19 and awarded a priority review voucher",
+      "from_note": "data/filing_notes/RARE_2026-10-07.md",
+      "check": "web_page_contains",
+      "params": {
+        "url": "https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/approved-cellular-and-gene-therapy-products",
+        "publisher": "FDA CBER, Approved Cellular and Gene Therapy Products",
+        "terms": [
+          "GENGLYCOS",
+          "pariglasgene"
+        ],
+        "covers": "that FDA lists the product as approved; it does not confirm the approval date or the voucher"
+      }
+    },
+    {
+      "id": "RARE-fayuvi-approval",
+      "ticker": "RARE",
+      "claim": "FDA approved FAYUVI (UX111) for MPS IIIA on 2026-09-17 and awarded a priority review voucher",
+      "from_note": "data/filing_notes/RARE_2026-10-14.md",
+      "check": "web_page_contains",
+      "params": {
+        "url": "https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/approved-cellular-and-gene-therapy-products",
+        "publisher": "FDA CBER, Approved Cellular and Gene Therapy Products",
+        "terms": [
+          "FAYUVI",
+          "rebisufligene"
+        ],
+        "covers": "that FDA lists the product as approved; it does not confirm the approval date or the voucher"
+      }
+    },
+    {
+      "id": "SRRK-isembyld-approval",
+      "ticker": "SRRK",
+      "claim": "FDA approved ISEMBYLD (apitegromab) for SMA in patients 2 and older on an SMN2-targeted treatment",
+      "from_note": "data/filing_notes/SRRK_2026-09-15.md",
+      "check": "fda_drugsfda",
+      "params": {
+        "brand_name": "ISEMBYLD",
+        "approved_on_or_before": "2026-09-14",
+        "covers": "that FDA approved ISEMBYLD and the approval date; it does not confirm the indication wording"
+      }
+    },
+    {
+      "id": "SRRK-postmarketing-requirements",
+      "ticker": "SRRK",
+      "claim": "FDA required a pregnancy safety study and asked for 15-day fracture alert reports",
+      "from_note": "data/filing_notes/SRRK_2026-09-15.md",
+      "check": "manual",
+      "params": {
+        "where": "ISEMBYLD approval letter on Drugs@FDA, BLA 761463 (https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761463), under 'Approval Date(s) and History, Letters, Labels, Reviews'",
+        "why_manual": "Approval letters are PDFs; the requirement wording needs a human read."
+      }
+    },
+    {
+      "id": "SRPT-regenxbio-payment",
+      "ticker": "SRPT",
+      "claim": "Sarepta paid REGENXBIO the $39.0 million settlement within ten days of 2026-09-23",
+      "from_note": "data/filing_notes/SRPT_2026-09-23.md",
+      "check": "sec_filing_text",
+      "params": {
+        "cik": 873303,
+        "forms": [
+          "10-Q",
+          "10-K"
+        ],
+        "filed_after": "2026-10-01",
+        "must_contain": [
+          "REGENXBIO"
+        ],
+        "look_for": [
+          "39.0 million",
+          "paid",
+          "settlement"
+        ]
+      }
+    },
+    {
+      "id": "QURE-bla-status",
+      "ticker": "QURE",
+      "claim": "uniQure submitted the AMT-130 BLA on 36-month data; acceptance and FDA action date not disclosed",
+      "from_note": "data/filing_notes/QURE_2026-09-29.md",
+      "check": "sec_filing_text",
+      "params": {
+        "cik": 1590560,
+        "forms": [
+          "8-K",
+          "10-Q",
+          "10-K"
+        ],
+        "filed_after": "2026-09-30",
+        "must_contain": [
+          "AMT-130"
+        ],
+        "look_for": [
+          "BLA",
+          "accepted",
+          "PDUFA",
+          "priority review",
+          "action date"
+        ],
+        "include_exhibits": true
+      }
+    },
+    {
+      "id": "DYN-fda-designations",
+      "ticker": "DYN",
+      "claim": "DYNE-101 has FDA Breakthrough Therapy, Orphan Drug and Fast Track designations",
+      "from_note": "data/filing_notes/DYN_2026-09-29.md",
+      "check": "manual",
+      "params": {
+        "where": "Orphan Drug: FDA Orphan Drug Designations database (https://www.accessdata.fda.gov/scripts/opdlisting/oopd/). Breakthrough and Fast Track are not published per product.",
+        "why_manual": "The orphan database is a search form without an API; Breakthrough and Fast Track grants are not public."
+      }
+    },
+    {
+      "id": "NBIX-roberts-employment-agreement",
+      "ticker": "NBIX",
+      "claim": "New CMO Eiry W. Roberts: base salary $825,000, 60% target bonus, equity with target values of about $625,000 (options), $250,000 (RSUs) and $375,000 (performance RSUs); final Employment Agreement not yet filed",
+      "from_note": "data/filing_notes/NBIX_2026-09-28.md",
+      "check": "sec_filing_text",
+      "params": {
+        "cik": 914475,
+        "forms": [
+          "10-Q",
+          "10-K"
+        ],
+        "filed_after": "2026-09-28",
+        "must_contain": [
+          "Roberts"
+        ],
+        "look_for": [
+          "Roberts",
+          "825,000",
+          "Employment Agreement"
+        ]
+      }
+    },
+    {
+      "id": "RARE-genglycos-fda-press",
+      "ticker": "RARE",
+      "claim": "FDA granted accelerated approval to GENGLYCOS (Ultragenyx) for GSDIa on 2026-08-19, and the application received a Rare Pediatric Disease Priority Review Voucher",
+      "from_note": "data/filing_notes/RARE_2026-10-07.md",
+      "check": "web_page_contains",
+      "params": {
+        "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-therapy-patients-aged-8-years-and-older-glycogen-storage-disease-type-ia",
+        "publisher": "FDA press announcement",
+        "require_all": true,
+        "terms": [
+          "For Immediate Release: August 19, 2026",
+          "accelerated approval for Genglycos",
+          "glycogen storage disease type Ia",
+          "The application for Genglycos received a Rare Pediatric Disease Priority Review Voucher",
+          "The FDA granted accelerated approval of Genglycos to Ultragenyx"
+        ]
+      }
+    },
+    {
+      "id": "RARE-fayuvi-fda-press",
+      "ticker": "RARE",
+      "claim": "FDA approved FAYUVI on 2026-09-17 for pediatric MPS IIIA, described by FDA as the first treatment; approval type and voucher as stated by the company",
+      "from_note": "data/filing_notes/RARE_2026-09-17.md",
+      "check": "web_page_contains",
+      "params": {
+        "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-pediatric-patients-sanfilippo-syndrome-type",
+        "publisher": "FDA press announcement",
+        "require_all": true,
+        "terms": [
+          "For Immediate Release: September 17, 2026",
+          "today approved Fayuvi",
+          "the first treatment for pediatric patients with mucopolysaccharidosis type IIIA"
+        ],
+        "covers": "the approval date, the indication and FDA's 'first treatment' wording; it does not confirm the approval type ('standard full approval') or the Priority Review Voucher, which the FDA pages do not mention"
+      }
+    }
+  ]
+}

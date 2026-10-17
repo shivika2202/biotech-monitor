@@ -1,0 +1,7 @@
+- Every factual claim in a digest needs a source link and a date.
+- Mark anything not confirmed in a primary source as "unverified".
+- Never state a catalyst date, PDUFA date, or trial result from memory.
+- No buy or sell recommendations or price targets.
+- Label company press releases as "company-reported". Flag promotional language and missing numbers.
+- Say clearly what sources could not be accessed (paywalled or blocked) in each digest.
+- No em dashes. Plain language.
